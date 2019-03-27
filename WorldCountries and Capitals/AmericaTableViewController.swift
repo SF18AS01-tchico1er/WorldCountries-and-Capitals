@@ -10,56 +10,56 @@ import UIKit
 
 class AmericaTableViewController: UITableViewController {
     
-    var state: [State] = [
-        State(state: "Alabama",capital: "Montgomery"),
-        State(state: "Alaska", capital: "Juneau"),
-        State(state: "Arizona", capital: "Phoenix"),
-        State(state: "Arkansas", capital: "Little Rock"),
-        State(state: "California", capital: "Sacramento"),
-        State(state: "Colorado", capital: "Denver"),
-        State(state: "Delaware", capital: "Dover"),
-        State(state: "Florida", capital: "Tallahassee"),
-        State(state: "Georgia", capital: "Atlanta"),
-        State(state: "Hawaii", capital: "Honolulu"),
-        State(state: "Idaho", capital: "Boise"),
-        State(state: "Illinois", capital: "Springfield"),
-        State(state: "Indiana", capital: "Indianapolis"),
-        State(state: "Iowa", capital: "Des Moines"),
-        State(state: "Kansas", capital: "Topeka"),
-        State(state: "Kentucky", capital: "Frankfort"),
-        State(state: "Louisiana", capital: "Baton Rouge"),
-        State(state: "Maine", capital: "Augusta"),
-        State(state: "Maryland", capital: "Annapolis"),
-        State(state: "Massachusetts", capital: "Boston"),
-        State(state: "Michigan", capital: "Lansing"),
-        State(state: "Minnesota", capital: "St. Paul"),
-        State(state: "Mississippi", capital: "Jackson"),
-        State(state: "Montana", capital: "Helena"),
-        State(state: "Nebraska", capital: "Lincoln"),
-        State(state: "Nevada", capital: "Carson City"),
-        State(state: "New Hampshire", capital: "Concord"),
-        State(state: "New Jersey", capital: "Trenton"),
-        State(state: "New Mexico", capital: "Santa Fe"),
-        State(state: "New York", capital: "Albany"),
-        State(state: "North Carolina", capital: "Raleigh"),
-        State(state: "North Dakota", capital: "Bismarck"),
-        State(state: "Ohio", capital: "Columbus"),
-        State(state: "Oklahoma", capital: "Oklahoma City"),
-        State(state: "Oregon", capital: "Salem"),
-        State(state: "Pennsylvania", capital: "Harrisburg"),
-        State(state: "Rhode Island", capital: "Providence"),
-        State(state: "South Carolina", capital: "Columbia"),
-        State(state: "South Dakota", capital: "Pierre"),
-        State(state: "Tennessee", capital: "Nashville"),
-        State(state: "Texas", capital: "Austin"),
-        State(state: "Utah", capital: "Salt Lake City"),
-        State(state: "Vermont", capital: "Montpelier"),
-        State(state: "Virginia", capital: "Richmond"),
-        State(state: "Washington", capital: "Olympia"),
-        State(state: "West Virginia", capital: "Charleston"),
-        State(state: "Wisconsin", capital: "Madison"),
-        State(state: "Wyoming", capital: "Cheyenne"),
-        State(state: "Falkland Islands  ",capital: "Stanley")
+    var state: [USA] = [
+        USA(name: "Alabama",capital: "Montgomery"),
+        USA(name: "Alaska", capital: "Juneau"),
+        USA(name: "Arizona", capital: "Phoenix"),
+        USA(name: "Arkansas", capital: "Little Rock"),
+        USA(name: "California", capital: "Sacramento"),
+        USA(name: "Colorado", capital: "Denver"),
+        USA(name: "Delaware", capital: "Dover"),
+        USA(name: "Florida", capital: "Tallahassee"),
+        USA(name: "Georgia", capital: "Atlanta"),
+        USA(name: "Hawaii", capital: "Honolulu"),
+        USA(name: "Idaho", capital: "Boise"),
+        USA(name: "Illinois", capital: "Springfield"),
+        USA(name: "Indiana", capital: "Indianapolis"),
+        USA(name: "Iowa", capital: "Des Moines"),
+        USA(name: "Kansas", capital: "Topeka"),
+        USA(name: "Kentucky", capital: "Frankfort"),
+        USA(name: "Louisiana", capital: "Baton Rouge"),
+        USA(name: "Maine", capital: "Augusta"),
+        USA(name: "Maryland", capital: "Annapolis"),
+        USA(name: "Massachusetts", capital: "Boston"),
+        USA(name: "Michigan", capital: "Lansing"),
+        USA(name: "Minnesota", capital: "St. Paul"),
+        USA(name: "Mississippi", capital: "Jackson"),
+        USA(name: "Montana", capital: "Helena"),
+        USA(name: "Nebraska", capital: "Lincoln"),
+        USA(name: "Nevada", capital: "Carson City"),
+        USA(name: "New Hampshire", capital: "Concord"),
+        USA(name: "New Jersey", capital: "Trenton"),
+        USA(name: "New Mexico", capital: "Santa Fe"),
+        USA(name: "New York", capital: "Albany"),
+        USA(name: "North Carolina", capital: "Raleigh"),
+        USA(name: "North Dakota", capital: "Bismarck"),
+        USA(name: "Ohio", capital: "Columbus"),
+        USA(name: "Oklahoma", capital: "Oklahoma City"),
+        USA(name: "Oregon", capital: "Salem"),
+        USA(name: "Pennsylvania", capital: "Harrisburg"),
+        USA(name: "Rhode Island", capital: "Providence"),
+        USA(name: "South Carolina", capital: "Columbia"),
+        USA(name: "South Dakota", capital: "Pierre"),
+        USA(name: "Tennessee", capital: "Nashville"),
+        USA(name: "Texas", capital: "Austin"),
+        USA(name: "Utah", capital: "Salt Lake City"),
+        USA(name: "Vermont", capital: "Montpelier"),
+        USA(name: "Virginia", capital: "Richmond"),
+        USA(name: "Washington", capital: "Olympia"),
+        USA(name: "West Virginia", capital: "Charleston"),
+        USA(name: "Wisconsin", capital: "Madison"),
+        USA(name: "Wyoming", capital: "Cheyenne"),
+        USA(name: "Falkland Islands  ",capital: "Stanley")
     ];
     
     override func viewDidLoad() {
@@ -96,18 +96,17 @@ class AmericaTableViewController: UITableViewController {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "UsaCell", for: indexPath)
         
         // Configure the cell...
-        cell.textLabel?.text = " \(state[indexPath.row])";
-        cell.detailTextLabel?.text = "Welcome to the USA \([indexPath.row + 1]) state in alphabetic"
-        //"\(state[indexPath.row]) is \([indexPath.row + 1])";
-        cell.imageView?.image = UIImage(named: state[indexPath.row].state)
-        
+        let american: USA = state[indexPath.row];
+        cell.textLabel?.text = "The capital of \(american.name) is \(american.capital).";
+        cell.detailTextLabel?.text = " \(state[indexPath.row])";
+        cell.imageView?.image = UIImage(named: state[indexPath.row].name)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let usa = state[indexPath.row ]
-        print("\(usa) \(indexPath)")
+        //let usa = state[indexPath.row ]
+        //print("\(usa) \(indexPath)")
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -132,51 +131,20 @@ class AmericaTableViewController: UITableViewController {
             return .none
         }
     }
-    
-   
-     // Override to support conditional editing of the table view.
+    // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
      return true
      }
-    
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-   
-     // Override to support rearranging the table view.
+    // Override to support rearranging the table view.
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
      
      }
-  
-    
-    
-     // Override to support conditional rearranging of the table view.
+  // Override to support conditional rearranging of the table view.
      override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the item to be re-orderable.
      return true
      }
-     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 

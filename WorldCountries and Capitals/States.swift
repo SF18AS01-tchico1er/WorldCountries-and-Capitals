@@ -12,13 +12,13 @@ struct African {
     var name: String;
     var capital: String;
 }
-struct State {
-    var state: String
+struct USA {
+    var name: String
     var capital: String
 }
 
 struct EuropeState {
-    var country: String
+    var name: String
     var capital: String
 }
 

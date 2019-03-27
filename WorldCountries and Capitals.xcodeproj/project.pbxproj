@@ -19,6 +19,9 @@
 		823DF7DE221E523E000941EB /* AsiaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823DF7DD221E523E000941EB /* AsiaTableViewController.swift */; };
 		8296D9DC2226E0BB00742295 /* AntarcticaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8296D9DB2226E0BB00742295 /* AntarcticaTableViewController.swift */; };
 		829B08B7221FC63400702916 /* AustraliaAndOceanaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829B08B6221FC63400702916 /* AustraliaAndOceanaTableViewController.swift */; };
+		82FC2E06224288D200ABA959 /* StoreItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC2E05224288D200ABA959 /* StoreItemController.swift */; };
+		82FC2E082242893100ABA959 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC2E072242893100ABA959 /* StoreItem.swift */; };
+		82FC2E0A2242897E00ABA959 /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC2E092242897E00ABA959 /* URL+Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		823DF7DD221E523E000941EB /* AsiaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsiaTableViewController.swift; sourceTree = "<group>"; };
 		8296D9DB2226E0BB00742295 /* AntarcticaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntarcticaTableViewController.swift; sourceTree = "<group>"; };
 		829B08B6221FC63400702916 /* AustraliaAndOceanaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustraliaAndOceanaTableViewController.swift; sourceTree = "<group>"; };
+		82FC2E05224288D200ABA959 /* StoreItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItemController.swift; sourceTree = "<group>"; };
+		82FC2E072242893100ABA959 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
+		82FC2E092242897E00ABA959 /* URL+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,12 +76,15 @@
 			children = (
 				823DF79B221E2490000941EB /* AppDelegate.swift */,
 				823DF7B3221E27BC000941EB /* AfricaTableViewController.swift */,
+				82FC2E05224288D200ABA959 /* StoreItemController.swift */,
+				82FC2E072242893100ABA959 /* StoreItem.swift */,
+				82FC2E092242897E00ABA959 /* URL+Helper.swift */,
+				823DF7D9221E4F42000941EB /* EuropeTableViewController.swift */,
 				823DF7B1221E26EC000941EB /* AmericaTableViewController.swift */,
 				823DF7DD221E523E000941EB /* AsiaTableViewController.swift */,
 				829B08B6221FC63400702916 /* AustraliaAndOceanaTableViewController.swift */,
-				823DF7D9221E4F42000941EB /* EuropeTableViewController.swift */,
-				823DF7AF221E25DE000941EB /* WorldTableViewController.swift */,
 				8296D9DB2226E0BB00742295 /* AntarcticaTableViewController.swift */,
+				823DF7AF221E25DE000941EB /* WorldTableViewController.swift */,
 				823DF79F221E2490000941EB /* Main.storyboard */,
 				823DF7D7221E2D47000941EB /* States.swift */,
 				823DF7A2221E2490000941EB /* Assets.xcassets */,
@@ -160,11 +169,14 @@
 				823DF7B0221E25DE000941EB /* WorldTableViewController.swift in Sources */,
 				823DF7B4221E27BC000941EB /* AfricaTableViewController.swift in Sources */,
 				823DF7DA221E4F42000941EB /* EuropeTableViewController.swift in Sources */,
+				82FC2E06224288D200ABA959 /* StoreItemController.swift in Sources */,
+				82FC2E0A2242897E00ABA959 /* URL+Helper.swift in Sources */,
 				823DF7DE221E523E000941EB /* AsiaTableViewController.swift in Sources */,
 				829B08B7221FC63400702916 /* AustraliaAndOceanaTableViewController.swift in Sources */,
 				823DF7B2221E26EC000941EB /* AmericaTableViewController.swift in Sources */,
 				8296D9DC2226E0BB00742295 /* AntarcticaTableViewController.swift in Sources */,
 				823DF79C221E2490000941EB /* AppDelegate.swift in Sources */,
+				82FC2E082242893100ABA959 /* StoreItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

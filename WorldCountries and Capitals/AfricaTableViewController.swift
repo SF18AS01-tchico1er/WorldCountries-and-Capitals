@@ -10,15 +10,18 @@ import UIKit
 import SafariServices
 class AfricaTableViewController: UITableViewController{
     
+    var storeItemController: StoreItemController = StoreItemController(); //p. 893, step2, bullet 1
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var filterSegmentedController: UISegmentedControl!
     var country: [African] = [
-        African(name: "Algeria", capital: "Algiers"),
+        African(name: "Algeria", capital: "Algers"),
         African(name: "Angola", capital:  "Luanda"),
         African(name: "Benin", capital: "Porto-Novo"),
         African(name: "Botswana", capital: "Gaborone"),
-        African(name: "Burkina Faso ", capital: "Ouagadougou"),
+        African(name: "Burkina Faso", capital: "Ouagadougou"),
         African(name: "Burundi", capital: "Gitega"),
-        African(name: "Cameroon", capital: "Bujumbura"),
-        African(name: "Cap Verde", capital: "Yaounde"),
+        African(name: "Cameroon", capital: "Yaounde"),
+        African(name: "Cap Verde", capital: "Praia"),
         African(name: "Central African Republic", capital: "Bangui"),
         African(name: "Chad", capital: "N’Djamena"),
         African(name: "Comoros", capital: "Moroni"),
@@ -26,15 +29,15 @@ class AfricaTableViewController: UITableViewController{
         African(name: "Republic of Congo", capital: "Brazzaville"),
         African(name: "Cote d’Ivoire", capital: "Yamoussoukro"),
         African(name: "Djibouti", capital: "Djibouti"),
-        African(name: "AEgypt", capital: "Cairo"),
-        African(name: "Equatorial Guinea ", capital: "Malabo"),
+        African(name: "Egypt", capital: "Cairo"),
+        African(name: "Equatorial Guinea", capital: "Malabo"),
         African(name: "Eritrea", capital: "Asmara"),
         African(name: "Gabon", capital: "Addis Ababa"),
         African(name: "Ethiopia", capital: "Libreville"),
         African(name: "Gambia", capital: "Banjul"),
         African(name: "Ghana", capital: "Accra"),
         African(name: "Guinea Conakry", capital: "Conakry"),
-        African(name: "Guinea-Bissau ", capital: "Bissau"),
+        African(name: "Guinea Bissau", capital: "Bissau"),
         African(name: "Kenya", capital: "Nairobi"),
         African(name: "Lesotho", capital: "Maseru"),
         African(name: "Liberia", capital: "Monrovia"),
@@ -51,7 +54,7 @@ class AfricaTableViewController: UITableViewController{
         African(name: "Nigeria", capital: "Abuja"),
         African(name: "Rwanda", capital: "Kigali"),
         African(name: "Republic Arab Saharawi Democratic",
-        capital: "AauinSao Tome and Principe Sao Tome"),
+                capital: "AauinSao Tome and Principe Sao Tome"),
         African(name: "Senegal", capital: "Dakar"),
         African(name: "Seychelles", capital: "Victoria"),
         African(name: "Sierra Leone", capital: "Algiers"),
@@ -62,23 +65,99 @@ class AfricaTableViewController: UITableViewController{
         African(name: "Swaziland", capital: "Lobamba"),
         African(name: "Tanzania", capital: "Dar es Salaam"),
         African(name: "Togo", capital: "Lomé"),
-        African(name: "Tunisia ", capital: "Tunis"),
+        African(name: "Tunisia", capital: "Tunis"),
         African(name: "Uganda", capital: "Kampala"),
         African(name: "Zambia", capital: "Lusaka"),
         African(name: "Zimbabwe", capital: "Harare")
         
     ]
     
+    // add item controller property
+    
+    var items: [StoreItem] = [StoreItem]();   //p. 893, step 2, bullet 2
+    let queryOptions: [String] = ["movie", "music", "info", "book","president"];
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        //self.clearsSelectionOnViewWillAppear = false
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        super.viewDidLoad();
         navigationItem.rightBarButtonItem = editButtonItem
-        //navigationItem.title = "my title"
-        // print("type(of: self) == \(type(of: self))");
+
     }
+    
+    func fetchMatchingItems() {
+        
+        items = [];
+        tableView.reloadData();
+        let searchTerm: String = searchBar.text ?? ""
+        let mediaType: String = queryOptions[filterSegmentedController.selectedSegmentIndex]
+        if !searchTerm.isEmpty {
+            
+            // Set up query dictionary.
+            let query: [String: String] = [   //p. 893, step 2, bullet 3
+                "term":  searchTerm,
+                "media": mediaType,
+                "lang":  "en_us",
+                "limit": "10"
+            ];
+            
+            // Use the item controller to fetch items.
+            
+            storeItemController.fetchItems(matching: query) {(items: [StoreItem]?) in //p. 893, step 2, bullet 4
+                // If successful, use the main queue to set items and reload the table view.
+                // Otherwise, print an error to the console.
+                if let items: [StoreItem] = items {
+                    print("fetched \(items)");
+                    self.items = items;   //3 variables with the same name
+                    DispatchQueue.main.async {   //p. 894, step 3, bullet 2
+                        self.tableView.reloadData();
+                    }
+                } else {
+                    print("could not fetch items for \(mediaType) \(searchTerm)");
+                }
+            }
+            
+        }
+    }
+    
+    func configure(cell: UITableViewCell, forItemAt indexPath: IndexPath) {
+        let item: StoreItem = items[indexPath.row];
+        
+        // Set label to the item's name.
+        // Set detail label to the item's subtitle.
+        cell.textLabel?.text = item.trackName;          //p. 893, step 2, bullet 2
+        cell.detailTextLabel?.text = item.artistName;   //p. 894, step 4, bullet 1
+        
+        // Reset the image view to the gray image.
+        cell.imageView?.image = UIImage(named: "gray"); //p. 894, step 4, bullet 3
+        
+        // Initialize a network task to fetch the item's artwork.
+        // If successful, use the main queue capture the cell, to initialize a UIImage, and set the cell's image view's image to the
+        
+        //p. 894, step 4, bullet 3
+        let task: URLSessionTask = URLSession.shared.dataTask(with: item.artworkUrl100) {(data: Data?, response: URLResponse?, error: Error?) in
+            guard let data: Data = data else {
+                print("no artwork data was returned");
+                return;
+            }
+            
+            guard let image: UIImage = UIImage(data: data) else {
+                print("can't create image from data");
+                return;
+            }
+            
+            DispatchQueue.main.async {
+                cell.imageView?.image = image;
+            }
+        }
+        
+        task.resume();
+    }
+    @IBAction func filterOptionUpdate(_ sender: UISegmentedControl) {
+        
+        fetchMatchingItems()
+        
+    }
+    
+    
     
     // MARK: - Table view data source
     
@@ -103,13 +182,12 @@ class AfricaTableViewController: UITableViewController{
         guard indexPath.section == 0 else{
             fatalError("there is no section number\(indexPath.section).")
         }
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "AfricaCell", for: indexPath)
-        
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "AfricanCell", for: indexPath)
         // Configure the cell...
-        cell.textLabel?.text = " \(country[indexPath.row])";
-        cell.detailTextLabel?.text = "Welcome to the African \([indexPath.row + 1]) country in alphabetic order";
+        let african: African = country[indexPath.row];
+        cell.textLabel?.text = "The capital of \(african.name) is \(african.capital).";
+        cell.detailTextLabel?.text = " \(country[indexPath.row])";
         cell.imageView?.image = UIImage(named: country[indexPath.row].name)
-        
         return cell
     }
     
@@ -125,7 +203,7 @@ class AfricaTableViewController: UITableViewController{
     
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        //return .insert
+        //MARK: return .insert
         switch indexPath.row % 3 {
         case 0:
             return .none
@@ -140,17 +218,14 @@ class AfricaTableViewController: UITableViewController{
     
     // MARK: - Protocol UITableViewControllerDelegate
     
-    //Called when a cell is tapped.
+    //MARK: Called when a cell is tapped.
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let state: String = " \(country[indexPath.row])";
-        print("selected \(state) in cell number \(indexPath)");
-        
-        
         var urlComponents: URLComponents = URLComponents();
-        urlComponents.scheme = "https";
-        urlComponents.host = "en.wikipedia.org"; //English
-        urlComponents.path = "/wiki/\(state)";    //will change " " to "%20"
+        urlComponents.scheme = "http";
+        urlComponents.host = "youtube.com"; //MARK: English
+        urlComponents.path = "/youtube/\(state)";    //MARK: will change " " to "%20"
         
         guard let url: URL = urlComponents.url else {
             fatalError("could not create url for state \(state)");
@@ -160,28 +235,27 @@ class AfricaTableViewController: UITableViewController{
         present(safariViewController, animated: true);
         
     }
-    
-    // Override to support conditional editing of the table view.
+    // MARK: Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+        //MARK: Return false if you do not want the specified item to be editable.
         return true
+        
     }
-    
-    
-    
-    // Override to support rearranging the table view.
+    //MARK: Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
     }
-    
-    
-    
-    // Override to support conditional rearranging of the table view.
+    //MARK: Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
+        //MARK: Return false if you do not want the item to be re-orderable.
         return true
     }
     
-    
 }
-
+extension AfricaTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        fetchMatchingItems();
+        searchBar.resignFirstResponder();
+    }
+}

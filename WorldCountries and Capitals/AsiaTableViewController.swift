@@ -11,7 +11,7 @@ import UIKit
 class AsiaTableViewController: UITableViewController {
     
     
-    var state: [Asian] = [
+    var country: [Asian] = [
         Asian(name: "Afghanistan", capital: "Kabul"),
         Asian(name: "Armenia", capital: "Yerevan"),
         Asian(name: "Azerbaijan", capital: "Baku"),
@@ -55,7 +55,7 @@ class AsiaTableViewController: UITableViewController {
         Asian(name: "Taiwan", capital: "Taipei"),
         Asian(name: "Tajikistan", capital: "Dushanbe"),
         Asian(name: "Thailand", capital: "Bangkok"),
-        Asian(name: "Timor-Leste", capital: "Dili"),
+        Asian(name: "Timor Leste", capital: "Dili"),
         Asian(name: "Turkey", capital: "Ankara"),
         Asian(name: "Turkmenistan", capital: "Ashgabat"),
         Asian(name: "United Arab Emirates", capital: "Abu Dhabi"),
@@ -87,7 +87,7 @@ class AsiaTableViewController: UITableViewController {
             fatalError("thereis no section\(section)")
         }
         // #warning Incomplete implementation, return the number of rows
-        return state.count
+        return country.count
     }
     
     
@@ -97,25 +97,24 @@ class AsiaTableViewController: UITableViewController {
         }
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "AsianCell", for: indexPath)
         
-        // Configure the cell...
-        cell.textLabel?.text = " \(state[indexPath.row ])";
-        cell.detailTextLabel?.text = "Welcome to the Asian \([indexPath.row + 1]) country in alphabetic"
-        //" \(state[indexPath.row]) is \([indexPath.row + 1])";
-        cell.imageView?.image = UIImage(named: state[indexPath.row].name)
+        let asian: Asian = country[indexPath.row];
+        cell.textLabel?.text = "The capital of \(asian.name) is \(asian.capital).";
+        cell.detailTextLabel?.text = " \(country[indexPath.row])";
+        cell.imageView?.image = UIImage(named: country[indexPath.row].name)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let china = state[indexPath.row ]
+        let china = country[indexPath.row ]
         print("\(china) \(indexPath)")
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            state.remove(at: indexPath.row)
+            country.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: . automatic)
         }
         
